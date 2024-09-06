@@ -1,0 +1,48 @@
+gpu_id: '0'
+# log_wandb: False
+log_wandb: True
+
+# mamba4rec settings
+hidden_size: 64               
+num_layers: 1                 
+dropout_prob: 0.2               
+loss_type: 'CE'                 
+
+d_state: 32                     
+d_conv: 4                       
+expand: 2
+initializer_range : 0.02                      
+num_experts : 2
+num_heads : 8
+# dataset settings
+# dataset: ml-1m
+# MAX_ITEM_LIST_LENGTH: 200       
+
+# dataset: amazon-beauty
+dataset: amazon-video-games
+MAX_ITEM_LIST_LENGTH: 50   
+
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+load_col:
+    inter: [user_id, item_id, timestamp]
+
+user_inter_num_interval: "[5,inf)"
+item_inter_num_interval: "[5,inf)"
+
+# training settings
+epochs: 300
+train_batch_size: 2048
+learner: adam
+learning_rate: 0.001
+eval_step: 1
+stopping_step: 10
+train_neg_sample_args: ~
+hidden_dim: 3
+
+# evalution settings
+metrics: ['Hit', 'NDCG', 'MRR']
+valid_metric: NDCG@10
+eval_batch_size: 2048
+weight_decay: 0.0
+topk: [5]
